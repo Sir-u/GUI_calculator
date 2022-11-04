@@ -42,3 +42,7 @@ _Notice: You can [turn your previously filed issues into a pull-request here](ht
 * [General GitHub documentation](http://help.github.com/)
 * [GitHub pull request documentation](https://help.github.com/articles/about-pull-requests/)
 * [Read the Issue Guidelines by @necolas](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md) for more details
+
+# LiCENSE
+
+It is under [MIT License](LICENSE). It can be reused within proprietary software, provided that all copies of the software or its substantial portions include a copy of the terms of the MIT License and also a copyright notice.
