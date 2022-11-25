@@ -59,13 +59,13 @@ class Main(QDialog):
         button_percent = QPushButton("%")
         button_CE = QPushButton("CE")
         button_inverse = QPushButton("1/x")
-        button_square = QPushButton("x^2")
-        button_square_root = QPushButton("root X")
+        button_square = QPushButton("x²")
+        button_square_root = QPushButton("√x")
 
         ### %, CE, C, 1/x, 제곱, 제곱근 버튼 클릭 시 시그널 설정
-        button_percent.clicked.connect(lambda state, operation = "%": self.button_operation_clicked(operation))
-        button_CE.clicked.connect(lambda state, operation = "": self.button_operation_clicked(operation))
-        button_inverse.clicked.connect(lambda state, operation = "1/x": self.button_operation_clicked(operation))
+        button_percent.clicked.connect(self.button_percent_clicked)
+        button_CE.clicked.connect(self.button_clear_clicked)
+        button_inverse.clicked.connect(self.button_inverse_clicked)
         button_square.clicked.connect(lambda state, operation = "x^2": self.button_operation_clicked(operation))
         button_square_root.clicked.connect(lambda state, operation = "root X": self.button_operation_clicked(operation))
 
@@ -125,13 +125,26 @@ class Main(QDialog):
 
     def button_clear_clicked(self):
         self.equation.setText("")
-        self.solution.setText("")
 
     def button_backspace_clicked(self):
         equation = self.equation.text()
         equation = equation[:-1]
         self.equation.setText(equation)
 
+    def button_percent_clicked(self):
+        equation = self.equation.text()
+        if float(equation) > 100:
+            equation = int(equation) / 100
+            self.equation.setText(str(round(equation,0)))
+        elif float(equation) <= 100:
+            equation = float(equation) / 100
+            self.equation.setText(str(equation))
+        
+    def button_inverse_clicked(self):
+        equation = self.equation.text()
+        equation = 1 / float(equation)
+        self.equation.setText(str(equation).rstrip(".0"))
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main = Main()
