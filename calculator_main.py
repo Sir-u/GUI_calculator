@@ -1,6 +1,11 @@
 import sys
 from PyQt5.QtWidgets import *
 
+tempFigure1 = 0
+tempFigure2 = 0
+tempOperation = ""
+solution = 0
+
 class Main(QDialog):
     def __init__(self):
         super().__init__()
@@ -60,7 +65,7 @@ class Main(QDialog):
         button_CE = QPushButton("CE")
         button_inverse = QPushButton("1/x")
         button_square = QPushButton("x^2")
-        button_square_root = QPushButton("root X")
+        button_square_root = QPushButton("√X")
 
         ### %, CE, C, 1/x, 제곱, 제곱근 버튼 클릭 시 시그널 설정
         button_percent.clicked.connect(lambda state, operation = "%": self.button_operation_clicked(operation))
@@ -114,18 +119,38 @@ class Main(QDialog):
         self.equation.setText(equation)
 
     def button_operation_clicked(self, operation):
-        equation = self.equation.text()
-        equation += operation
-        self.equation.setText(equation)
-
+        global tempFigure1
+        global tempOperation
+        tempFigure1 = self.equation.text()
+        tempFigure1 = int(tempFigure1)
+        tempOperation = operation
+        self.equation.setText("")
+        
     def button_equal_clicked(self):
-        equation = self.equation.text()
-        solution = eval(equation)
-        self.solution.setText(str(solution))
+        global tempFigure1
+        global tempFigure2
+        global tempOperation
+        tempFigure2 = self.equation.text()
+        tempFigure2 = int(tempFigure2)
+        print(tempOperation)
+        if tempOperation == "+":
+            solution = tempFigure1 + tempFigure2
+            self.equation.setText(str(solution))
+        
+        if tempOperation == "-":
+            solution = tempFigure1 - tempFigure2
+            self.equation.setText(str(solution))
+
+        if tempOperation == "*":
+            solution = tempFigure1 * tempFigure2
+            self.equation.setText(str(solution))
+        
+        if tempOperation == "/":
+            solution = tempFigure1 / tempFigure2
+            self.equation.setText(str(solution))
 
     def button_clear_clicked(self):
         self.equation.setText("")
-        self.solution.setText("")
 
     def button_backspace_clicked(self):
         equation = self.equation.text()
